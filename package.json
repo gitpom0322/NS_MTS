@@ -12,8 +12,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "your-github-username",
-        "repo": "your-repo-name"
+        "owner": "gitpom0322",
+        "repo": "NS_MTS"
       }
     ],
     "productName": "農生 MTS 系統",
