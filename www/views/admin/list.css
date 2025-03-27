@@ -1,0 +1,43 @@
+
+
+    #table-adjust {
+        height: 610px;
+        overflow: auto;
+    }
+
+
+    /* 純CSS實現表格首行和首列固定(B) */
+    #table-adjust > table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse; /* 添加這行來確保表格邊框合併 */
+    }
+
+    #table-adjust thead {
+        background-color: rgb(233, 161, 223);
+        position: sticky;
+        top: 0;
+    }
+
+    #table-adjust th, #table-adjust td {
+        border: 1px solid #c1c5bd; /* 添加這行來顯示邊框 */
+        padding: 8px;
+        word-break: break-all;
+    }
+
+    #table-adjust th {
+        position: relative;
+        padding-right: 20px; /* 為了給resize handle留出空間 */
+        background-color: rgb(245, 228, 75); /* 添加背景色以區分表頭 */
+    }
+
+    #table-adjust th .resize-handle {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        cursor: col-resize;
+        user-select: none;
+    }
+    /* 純CSS實現表格首行和首列固定(E) */

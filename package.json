@@ -1,0 +1,67 @@
+{
+  "name": "NS MTS",
+  "version": "1.0.0",
+  "main": "./portal/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "tw.com.nonsheng",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "your-github-username",
+        "repo": "your-repo-name"
+      }
+    ],
+    "productName": "農生 MTS 系統",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "preload.js",
+      "index2.html",
+      "renderer.js",
+      "www/**/*",
+      "res/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "res/images/fav.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "res/images/fav.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "path/to/your/icon.png"
+    }
+  },
+  "author": "xun.chen",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.5.1",
+    "electron-builder": "^25.1.8",
+    "electron-devtools-installer": "^4.0.0"
+  },
+  "dependencies": {
+    "electron-log": "^4.3.1",
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-updater": "^4.6.5",
+    "handlebars": "^4.7.8",
+    "lodash": "^4.17.21",
+    "lodash.clonedeep": "^4.5.0",
+    "moment": "^2.30.1",
+    "mysql2": "^3.12.0",
+    "sequelize": "^6.37.5",
+    "tedious": "^18.6.1",
+    "vue-router": "^4.0.13"
+  },
+  "keywords": [],
+  "description": ""
+}

@@ -1,0 +1,110 @@
+  <!-- Modal -->
+  <div class="modal fade" id="addForm" tabindex="-1" aria-labelledby="modalAdd" aria-hidden="true" ref="bsModal">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" >
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalAdd">車輛資料維謢</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            
+            <form id="frm-edit" class="co-vee-validate">
+
+                <input type="hidden" id="rowid" name="rowid" v-model="fbd.rowid">
+                <input type="hidden" id="cmpid" name="cmpid" v-model="fbd.cmpid">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label for="carid" class="col-form-label">車輛代號:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="carid" name="carid" v-model="fbd.carid">
+                        </div>
+                    </div>
+
+                    <div class="col mb-3">
+                        <label for="car_name" class="col-sm-2 col-form-label">車輛名稱:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="car_name" name="car_name" v-model="fbd.car_name">
+                        </div>
+                    </div>
+                    <!-- <template v-if="fCabNo == 'OB0001'"> -->
+                    <!-- <div class="mb-3 row" v-show="fCabNo == 'OB0001' || fCabNo == 'OB0009'"></div> -->
+                    <div class="col mb-3">
+                        <label for="car_license" class="col-sm-2 col-form-label">車牌:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="car_license" name="car_license" v-model="fbd.car_license">
+                        </div>
+                    </div>
+
+                </div>
+            
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="car_user" class="col-form-label">司機姓名:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" name="car_user" v-model="fbd.car_user">
+                        </div>
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="gsm1" class="col-form-label">手機號碼1:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="gsm1" name="gsm1" v-model="fbd.gsm1">
+                        </div>
+                    </div>   
+                    <div class="mb-3 col">
+                        <label for="gsm2" class="col-form-label">手機號碼2:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="gsm2" name="gsm2" v-model="fbd.gsm2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="oil_type" class="col-form-label">油品種類:</label>
+                        <div class="col">
+                            <select class="form-select" id="oil_type" name="oil_type" v-model="fbd.oil_type">
+                                <option value="" selected>請選擇</option>
+                                <option v-for="(item, index) in refBaseOilType" :value="item.rowid" :key="index">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col">
+                        <label for="cost_car_type" class="col-form-label">計費車種:</label>
+                        <div class="col">
+                            <select class="form-select" id="cost_car_type" name="cost_car_type" v-model="fbd.cost_car_type">
+                                <option value="" selected>請選擇</option>
+                                <option v-for="(item, index) in refBaseCostType" :value="item.rowid" :key="index">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 col">
+                        <label for="car_style" class="col-form-label">車輛樣式:</label>
+                        <div class="col">
+                            <select class="form-select" id="car_style" name="car_style" v-model="fbd.car_style">
+                                <option value="" selected>請選擇</option>
+                                <option v-for="(item, index) in refBaseCarStyle" :value="item.rowid" :key="index">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+            <button type="button" class="btn btn-primary" @click="onSubmit" id="btnSave">存檔</button>
+        </div>
+        </div>
+    </div>
+    </div>

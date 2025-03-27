@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="./www/components/pages/PagesList.css">
+
+<!-- 分頁區塊 B -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+      <li class="page-item" v-if="pages.isFirst == false">
+          <a class="page-link" href="javascript:;" aria-label="Previous" @click="doPageslist_Pre()">
+              <span aria-hidden="true">&laquo;</span>
+          </a>
+      </li>
+
+      <template v-for="(p, num) in pages.pageShowView">
+          <li class="page-item">
+              <a class="page-link" :class="(pages.thisPage==pages.pagesScope_s + num) ? 'page-link-click' : '' " href="javascript:;" @click="doPagesThisClick(pages.pagesScope_s + num)">{{
+                  pages.pagesScope_s + num }}</a>
+          </li>
+      </template>
+
+      <li class="page-item" v-if="pages.isLast == false">
+          <a class="page-link" href="javascript:;" aria-label="Next" @click="doPageslist_Next()">
+              <span aria-hidden="true">&raquo;</span>
+          </a>
+      </li>
+
+      <li class="page-item ms-2">
+          <input type="input" class="form-control ui-pages-input" id="proddate" name="proddate"
+              :placeholder="`${pages.thisPage}頁`" :value="pages.thisPage" @keydown.enter="pagesNumEnter" />
+      </li>
+
+      <li class="page-item ms-2">
+          <h2><span class="badge bg-primary">共{{ pages.allPages }}頁</span></h2>
+      </li>
+
+  </ul>
+</nav>
+<!-- 分頁區塊 E -->
+

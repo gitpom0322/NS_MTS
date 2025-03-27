@@ -1,0 +1,3 @@
+<input type="text" class="form-control w-150px d-inline" name="list_filter me-2px" 
+:placeholder="`過濾內容`" :title="`過濾內容( ${searchText} )`"
+@keyup="doListFilter_Keyup($event)" @keyup.enter="doListFilter($event)"  />

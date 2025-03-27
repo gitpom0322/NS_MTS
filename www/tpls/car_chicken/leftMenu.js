@@ -1,0 +1,102 @@
+export const leftTpl = {
+	data() {
+	  return {
+		dataA: 'abc'
+	  };
+	},
+	methods: {
+      toggleSubmenu (event) {
+        event.preventDefault();
+        const parent = event.target.closest('.nav-item');
+        parent.classList.toggle('open');
+      },
+	  dotest() {
+		alert('dotest');
+	  }
+	},
+	mounted() {
+	  // 初始化
+	  console.log('init dataA:', this.dataA);
+	  //dotest();
+	},
+	template: `
+          <!-- BEGIN pos-menu -->
+            <div class="pos-menu">
+                <div class="logo">
+                    <a href="index_v3.html">
+                        <div class="logo-img"><img src="https://app.non-sheng.com.tw/res/images/fav.ico" /></div>
+                        <div class="logo-text">跟車大雞雞-{{dataA}}
+                        </div>
+                    </a>
+                </div>
+                <div class="nav-container">
+                    <div data-scrollbar="true" data-height="100%" data-skip-mobile="true">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="javascript:;">
+                                    <i class="fa fa-fw fa-utensils me-1 ms-n2"></i> <RouterLink to="/">區域監控</RouterLink>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:;">
+                                    <i class="fa fa-fw fa-drumstick-bite me-1 ms-n2"></i> 多車監控
+                                </a>
+                            </li>
+                     
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:;"  @click="toggleSubmenu($event)">
+                                    <i class="fa fa-fw fa-hamburger me-1 ms-n2"></i> 其本設定
+                                </a>
+                                <ul class="submenu">
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;"><RouterLink to="/car_manage">車輀管理</RouterLink></a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;"><RouterLink to="/admin">權限分享</RouterLink></a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:;"  @click="toggleSubmenu($event)">
+                                    <i class="fa fa-fw fa-hamburger me-1 ms-n2"></i> 其它
+                                </a>
+                                <ul class="submenu">
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">子層 1</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">子層 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="#" data-filter="pizza">
+                                    <i class="fa fa-fw fa-pizza-slice me-1 ms-n2"></i> Pizza
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-filter="drinks">
+                                    <i class="fa fa-fw fa-cocktail me-1 ms-n2"></i> Drinks
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-filter="desserts">
+                                    <i class="fa fa-fw fa-ice-cream me-1 ms-n2"></i> Desserts
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-filter="snacks">
+                                    <i class="fa fa-fw fa-cookie-bite me-1 ms-n2"></i> Snacks
+                                </a>
+                            </li> -->
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END pos-menu -->
+  `
+  };

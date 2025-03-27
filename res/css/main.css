@@ -1,0 +1,94 @@
+
+.custom-body {
+      background-color: aqua;
+      color: hsl(256, 85%, 46%);
+}
+
+.custom-body2 {
+    background-color: aqua;
+    color: hsl(256, 85%, 46%);
+}
+
+
+/* Pages 常用元件 (B) */
+#page-loading-layer {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99998;
+    background-color: #000000;
+    opacity: 0.82;
+}
+
+#page-loading {
+    display: none;
+    position: fixed;
+    /*margin: auto;*/
+    top: 40%;
+    right: 0;
+    bottom: 0;
+    /*left: 40%;*/
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    opacity: 1;
+    text-align: center;
+}
+
+
+/* 內部讀取 */
+#page-reading {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    z-index: 99999;
+    opacity: 1;
+    text-align: center;
+}
+/* Pages 常用元件 (E) */
+
+ .error {
+    margin: 0 auto;
+    text-align: left;
+    color: rgb(236, 78, 78);
+    font-size: 0.8rem;
+    font-weight: 700;
+
+} 
+
+.co-rows-click{
+    background-color: rgb(35, 193, 204);
+}
+
+
+
+/***** car_chicken 設定區塊(B) *****/
+
+#car-content{
+    margin: 15px;;
+}
+
+.car-table-mx{
+    margin: 15px;
+}
+
+/* car_chicken 左方menu子層設定 */
+.nav-item .submenu {
+    display: none;
+    padding-left: 20px;
+  }
+  
+  .nav-item.open .submenu {
+    display: block;
+  }
+
+  /* .pos-content{
+    margin: 6px;;
+  } */
+
+
+  /***** car_chicken 設定區塊(E) *****/

@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="./www/views/admin/list.css">
+
+<div class="row">
+    <!-- BEGIN col-12 -->
+    <div class="col-12">
+        <!-- BEGIN panel -->
+        <div class="panel panel-inverse" data-sortable-id="form-stuff-12">
+            <!-- BEGIN panel-heading -->
+            <div class="panel-heading">
+                <h4 class="panel-title">入庫單維護</h4>
+                <!-- <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+                    </div> -->
+            </div>
+            <!-- END panel-heading -->
+            <!-- BEGIN panel-body -->
+            <div class="panel-body">            
+              
+                <form class="row row-cols-lg-auto g-3 align-items-center" id="searchForm">
+                   
+                    <div class="col">建檔(起):</div>
+                    <div class="col">
+                        <input type="date" class="form-control" name="createionDateS"
+                        title="建檔日期(起)" />
+                    </div>
+                    <div class="col">建檔(迄):</div>
+                    <div class="col">
+                        <input type="date" class="form-control" name="createionDateE"
+                        title="建檔日期(迄)" />
+                    </div>
+                              
+                    <div class="col">
+                        <input type="text" class="form-control w-100px" name="keyword" placeholder="請輸入關鍵字" />
+                    </div>
+
+                    <button type="button" class="btn btn-primary w-100px me-5px" @click="doListData_Get(1)">查詢</button>
+                </form>
+                <hr >
+
+                <div class="col me-5px">
+                    <!-- <button type="button" class="btn btn-primary w-100px me-5px" data-bs-toggle="modal" data-bs-target="#addForm">新增</button> -->
+                    <button type="button" class="btn btn-primary w-100px me-5px" @click="$refs.modalForm.doModal_Show('add')">新增</button>
+                    <button type="button" class="btn btn-primary w-100px me-5px" @click="$refs.modalForm.doModal_Show('upd', trRowsId, refRowData)">修改</button>
+                    <QuickSearch :defLists="defLists" :searchColumn="quickSearchColumn" :searchText="quickSearchText"
+                    @ListFilter="doListFilter_Emit"></QuickSearch>
+                </div>
+
+            </div>
+            <!-- END panel-body -->
+
+            <!-- <div class="hljs-wrapper">
+                <hr />
+            </div> -->
+            <!-- END hljs-wrapper -->
+
+            <!-- BEGIN table-responsive -->
+            <div class="table-responsive" id="table-adjust">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="abc">
+                            <th nowrap>#<div class="resize-handle" @mousedown="startResize($event, 0)"></div></th>
+                            <th nowrap>SNO<div class="resize-handle" @mousedown="startResize($event, 1)"></div></th>
+                            <th nowrap>帳號<div class="resize-handle" @mousedown="startResize($event, 2)"></div></th>
+                            <th nowrap>姓名<div class="resize-handle" @mousedown="startResize($event, 3)"></div></th>
+                            <th nowrap>手機<div class="resize-handle" @mousedown="startResize($event, 4)"></div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="(d, index) in refList" :key="index">
+                        <tr class="co-tr-default">
+                            <td>{{ index }}</td>
+                            <td>{{ d.sno }}</td>
+                            <td class="row-font1">{{ d.un }}</td>                              
+                            <td>{{ d.name }}</td>
+                            <td>{{ d.gsm }}</td>                            
+                        </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END table-responsive -->
+
+
+
+        </div>
+        <!-- END panel -->
+
+    </div>
+    <!-- END col-6 -->
+

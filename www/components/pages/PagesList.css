@@ -1,0 +1,20 @@
+.ui-pages-input {
+    width: 52px;
+    height:32px;
+    border: 1px solid #32aace;
+
+}
+
+
+.page-link-click{
+    background-color: #157be1;
+}
+
+/* 覆寫 */
+.page-link:focus {
+    background-color: #157be1;
+}
+
+.page-link:active {
+    background-color: #42ec6c;
+}

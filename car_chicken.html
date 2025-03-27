@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>我的 Electron 應用</title>
+
+
+    <!-- ================== BEGIN core-css ================== -->
+    <link href="./res/js/color_admin/assets/css/vendor.min.css" rel="stylesheet" />
+    <!-- <link href="./res/js/color_admin/assets/css/default/app.min.css" rel="stylesheet" /> -->
+    <link href="./res/js/color_admin/assets/css/default/app.css" rel="stylesheet" />
+
+    <!-- ================== BEGIN page-css ================== -->
+    <link href="./res/js/color_admin/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
+    <link href="./res/js/color_admin/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="./res/js/color_admin/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="./res/js/color_admin/assets/plugins/select-picker/dist/picker.min.css" rel="stylesheet" />
+    <!-- <link href="./res/js/color_admin/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" /> -->
+    <link href="./res/js/color_admin/assets/plugins/select2/dist/css/select2.css" rel="stylesheet" />
+    <!-- ================== END page-css ================== -->
+
+
+    <!-- ================== 自定義-css ================== -->
+    <link href="./res/css/main.css" rel="stylesheet" />
+    <link href="./res/css/overwrite.css" rel="stylesheet" />
+    <!-- ================== END 自定義-css ================== -->
+
+    <style>
+      /* body {
+        margin: 0;
+        padding: 0;
+        border: 5px solid rgb(172, 228, 127); 
+        box-sizing: border-box;
+        
+      } */
+    </style>
+
+</head>
+
+
+<body>
+
+
+  <div id="app" class="app app-header-fixed app-sidebar-fixed"></div>
+
+
+    <!-- <script src="./res/js/jquery/jquery-3.7.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.12/dist/vue-router.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  
+    <!-- ================== BEGIN core-js ================== -->
+    <script src="./res/js/color_admin/assets/js/vendor.min.js"></script>
+    <script src="./res/js/color_admin/assets/js/app.js"></script>
+    <!-- ================== END core-js ================== -->
+
+
+    <!-- ================== BEGIN page-js ================== -->
+    <script src="./res/js/color_admin/assets/plugins/@highlightjs/cdn-assets/highlight.min.js"></script>
+    <script src="./res/js/color_admin/assets/js/demo/render.highlight.js"></script>
+    <script src="./res/js/color_admin/assets/plugins/select-picker/dist/picker.min.js"></script>
+
+
+    <script src="./res/js/color_admin/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="./res/js/color_admin/assets/plugins/select2/dist/js/select2.min.js"></script>
+    <!-- <script src="./res/js/color_admin/demo/form-plugins.demo.js"></script> -->
+
+    <script src="./res/js/color_admin/ns_lib/form-plugins.init.js"></script>
+
+    <!-- ================== BEGIN jquery-plugin ================== -->
+    <script src="./res/js/jquery/jquery-cookie/jquery.cookie.min.js"></script>
+    <script src="./res/js/jquery/jquery.serializeObject/dist/jquery.serializeObject.min.js"></script>
+
+    <!-- ================== END page-js ================== -->
+
+    <!-- ================== jquery-js ================== -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script> -->
+    <!-- jQuery Validation -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js"></script>
+
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbGAQP5gq81mCwPSZQ0IAA6ZPENDctERI&callback=initMap"></script>
+      
+    <script src="./res/js/lib_web.js"></script>
+    
+    <script type="module" src="./www/renderer/car_chicken.js"></script>
+
+
+    <script>
+        function initMap(){
+            console.log("initMap-index");
+        } 
+    </script>
+
+  </body>
+</html>

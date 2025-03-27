@@ -1,0 +1,31 @@
+.pos-content {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pos-content-resizer {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    cursor: ew-resize;
+    z-index: 10;
+  }
+
+
+  #google-map {
+    height: 100%;
+    width: 100%;
+}
+
+
+/* 左方menu子層設定 */
+.nav-item .submenu {
+  display: none;
+  padding-left: 20px;
+}
+
+.nav-item.open .submenu {
+  display: block;
+}
