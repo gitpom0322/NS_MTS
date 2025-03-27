@@ -4,10 +4,19 @@ const path = require('path');
 const os = require('os');
 
 const { autoUpdater } = require('electron-updater');
-const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer');
 const log = require('electron-log');
 
 const { sequelize, User, Manager } = require('../nslibs/db/database');
+
+//dev tools
+if (process.env.NODE_ENV === 'development') {
+  const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer');
+
+  installExtension(VUEJS_DEVTOOLS)
+      .then((name) => console.log(`已安裝擴充功能: ${name}`))
+      .catch((err) => console.error('安裝擴充功能失敗:', err));
+}
+
 
 // 設置日誌記錄
 autoUpdater.logger = log;
@@ -49,7 +58,7 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  // 檢查更新
+ // 啟動自動更新檢查
   autoUpdater.checkForUpdatesAndNotify();
 
 
@@ -173,15 +182,38 @@ ipcMain.on('open-new-window', () => {
 
 module.exports = { createNewWindow };
 
-// 自動更新事件
+
+// 自動更新事件處理
 autoUpdater.on('update-available', (info) => {
-  log.info('Update available.');
-  mainWindow.webContents.send('update_available', info);
+  log.info('有可用的更新.');
+  // mainWindow.webContents.send('update_available', info);
+  dialog.showMessageBox({
+    type: 'info',
+    title: '更新可用',
+    message: '有新的版本可用，正在下載更新...',
+  });
 });
 
 autoUpdater.on('update-downloaded', (info) => {
-  log.info('Update downloaded.');
-  mainWindow.webContents.send('update_downloaded', info);
+  log.info('更新下載完成.');
+  // mainWindow.webContents.send('update_downloaded', info);
+  dialog
+  .showMessageBox({
+    type: 'info',
+    title: '更新已準備好',
+    message: '更新已下載完成，是否立即安裝並重啟應用？',
+    buttons: ['是', '否'],
+  })
+  .then((result) => {
+    if (result.response === 0) {
+      autoUpdater.quitAndInstall(); // 安裝更新並重啟應用
+    }
+  });
+});
+
+autoUpdater.on('error', (error) => {
+  console.error('自動更新錯誤:', error);
+  dialog.showErrorBox('更新錯誤', error == null ? '未知錯誤' : error.toString());
 });
 
 ipcMain.on('restart_app', () => {
