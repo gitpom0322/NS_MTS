@@ -1,0 +1,6 @@
+#div-messages{
+    overflow: scroll;
+    max-height: 710px;
+    white-space: nowrap; /* 禁止內容換行 */
+    overflow-x: hidden; /* 隱藏橫向滾動條 */
+}

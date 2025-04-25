@@ -68,12 +68,13 @@ export const leftTpl = {
               <div class="menu-caret"></div>
             </a>
             <div class="menu-submenu">
+             <div class="menu-item">
+                <a href="index.html" class="menu-link"><RouterLink to="/messages_center">訊息中心</RouterLink></a>
+              </div>
               <div class="menu-item">
-                <a href="index.html" class="menu-link"><RouterLink to="/">首頁111</RouterLink></a>
+                <a href="index.html" class="menu-link"><RouterLink to="/">首頁12</RouterLink></a>
               </div>
-              <div class="menu-item active">
-                <a href="index.html" class="menu-link"><RouterLink to="/admin">admin頁</RouterLink></a>
-              </div>
+ 
               <div class="menu-item">
                 <a href="index.html" class="menu-link"><RouterLink to="/list3">list3頁</RouterLink></a>
               </div>

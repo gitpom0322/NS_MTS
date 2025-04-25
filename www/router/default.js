@@ -8,8 +8,8 @@ const Admin = { template: '<div>Admin Page</div>' };
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/admin', component: Admin },
-  //{ path: '/admin', component: () => import('./views/admin/list.js') }, // 動態載入 admin 組件
+  { path: '/messages_center', component: () => import('../views/messages/list.js') },
+  // { path: '/admin', component: Admin },
   { path: '/list3', component: () => import('../views/users/list.js') }, // 動態載入 Users 組件
   { path: '/car_chicken', component: () => import('../views/car_chicken_t/list.js') },
   { path: '/car_chicken_new', component: () => import('../views/car_chicken/list.js') },

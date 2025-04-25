@@ -34,6 +34,10 @@ const MessageLog = sequelize.define('MessageLog', {
     type: DataTypes.BOOLEAN, // 對應 SQL 的 BIT
     allowNull: true,
   },
+  isdel: {
+    type: DataTypes.BOOLEAN, // 對應 SQL 的 BIT
+    allowNull: true,
+  },
   cdate: {
     type: DataTypes.DATE, // 對應 SQL 的 DATETIME
     allowNull: true,

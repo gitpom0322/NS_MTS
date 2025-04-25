@@ -3,9 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 // 獲取傳遞的 __dirname
 const appDir = process.argv.find(arg => arg.startsWith('--app-dir=')).split('=')[1];
-
-
-console.log('Preload script loaded-2223');
+// console.log('Preload script loaded');
 
 contextBridge.exposeInMainWorld('electron', {
   closeWindow: () => {
@@ -57,6 +55,13 @@ contextBridge.exposeInMainWorld('electron', {
 });
 
 
+
+
+window.elecAPI = {
+  toInstall: () => ipcRenderer.invoke('install'),
+  onUpdate: (callback) => ipcRenderer.on('update', callback),
+  onDownloaded: (callback) => ipcRenderer.on('downloaded', callback),
+};
 
 
 contextBridge.exposeInMainWorld('nsAPI', {

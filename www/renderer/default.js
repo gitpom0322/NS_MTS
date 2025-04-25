@@ -1,4 +1,7 @@
 const { createApp, defineAsyncComponent } = Vue;
+ const { createPinia } = Pinia;
+
+
 
 import router  from '../router/default.js';  //router會導致左方失效
 
@@ -34,6 +37,10 @@ appVue.component('top-section', topTpl);
 appVue.component('left-section', leftTpl);
 // appVue.component('footer-section', footerTpl);
 
+
+// 初始化 Pinia
+const pinia = createPinia();
+appVue.use(pinia);
 
 // 設置 Vue 應用的配置來隱藏警告訊息
 appVue.config.warnHandler = function (msg, vm, trace) {

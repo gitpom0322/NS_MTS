@@ -1,165 +1,129 @@
-// filepath: /d:/NB/公司/SourceCode/專案/js/electron/t01/e01/www/tpls/top.js
-const { ref, reactive, watch, computed, nextTick } = Vue;
+const { ref, reactive, watch, computed, nextTick, onMounted } = Vue;
+const { mapState } = Pinia;
+
+import { useMessagesStore } from '../../stores/messagesStore.js'; //載入 Pinia Store
 
 export const topTpl = {
-  data() {
+  setup() {
+
+    const messagesStore = useMessagesStore(); // 使用 Pinia Store
+
+    const msgTatal = ref(0); // 確保 msgTatal 是 ref
+    const templateContent = ref(''); // 用於存儲 fetch 獲取的內容
+    const templateContainer = ref(null); // 定義 templateContainer
+
+    // console.log('totalMessages:', messagesStore.totalMessages);
+
+    // msgTatal.value = messagesStore.totalMessages; // 通知總數
+
+    console.log('refList:', messagesStore.refList);
+
+
+    // 在組件掛載時獲取訊息
+    const doNotifiMsg_Show = async (title, body, event) => {
+      await messagesStore.doNotifiMsg_Show(title, body, event);
+    };
+   
+  
+    
+    // 初始化
+    onMounted(async () => {
+
+      await messagesStore.doNotifiList(); // 然後執行通知列表的初始化
+      //await fetchTemplate(); // 確保模板先加載
+
+      // 在通知列表更新後重新編譯模板
+      // nextTick(() => {
+      //   if (templateContainer.value) {
+      //     compileTemplate(templateContainer.value);
+      //   } else {
+      //     console.error('templateContainer is null');
+      //   }
+      // });
+      
+      //console.log('refList after doNotifiList:', messagesStore.refList);
+    });
+
     return {
-      datab: '123',
-      msgTatal: 0,
-      templateContent: '', // 用於存儲 fetch 獲取的內容
-      refList : ref([]),
+      msgTatal: computed(() => messagesStore.msgTatal), // 將 msgTatal 暴露給模板
+      refList: computed(() => messagesStore.refList.value), // 確保 refList 是響應式的
+      // templateContainer ,
+      doNotifiMsg_Show: messagesStore.doNotifiMsg_Show, // 方法暴露給模板
     };
   },
-  methods: {
-    dotop() {
-      alert('dotop');
-    },
-
-    doNotifiMsg_Show(title, body) { 
-
-        // 將換行符號 (\n) 替換為 <br />
-        let new_body = body.replace(/\n/g, '<br />');
-
-        // 調用 Electron 的通知功能
-        if (window.electron && window.electron.customNotification) {
-            window.electron.customNotification.show(title, new_body);
-            this.notificationResult = '通知已發送成功！'; // 更新通知結果
-        } else {
-            this.notificationResult = '通知功能不可用！'; // 更新通知結果
-            console.error('Electron notification API 不可用');
-        }
-
-    },
-
-    // 定義一個延遲函式
-    doDelay(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    },
-
-    doNotifiMsg_Send(total, data) {
-
-        console.log('total:', total);
-        console.log('data:', data);
-        
-        this.msgTatal = total;
-        // 定義一個異步函式來處理逐條通知
-        const sendNotifications = async () => {
-            for (let index = 0; index < data.length; index++) {
-                const item = data[index];
-                //console.log(`第 ${index + 1} 筆資料:`, item);
-
-                // 顯示通知
-                this.doNotifiMsg_Show(item.title, item.msg);
-
-                // 等待 1 秒
-                await this.doDelay(1000);
-            }
-      };
-
-        // 調用異步函式
-        sendNotifications();
-
-    },
-
-    doNotification() {
-
-        const userData = libUserData_Get();
-        console.log('userData:', userData);
-
-        let params = {
-            uid: userData.uid,
-        };
-
-        // 查詢所有 Users
-        window.electron.ipcRenderer.invoke('MessageLog_Get', params)
-        .then(response => {
-            const { totalCount, data } = response;
-            //console.log('MessageLog_Get:', data);
-            //console.log(`Total: ${totalCount}`); // 記錄總筆數
-            this.doNotifiMsg_Send(totalCount, data);
-        })
-        .catch(error => {
-            console.error('Error MessageLog_Get:', error);
-        });
-
-    },
-
-
-
-    doNotifiList() {
-
-      const userData = libUserData_Get();
-      let params = {
-          uid: userData.uid,
-      };
-
-      // 查詢所有 Users
-      window.electron.ipcRenderer.invoke('MessageLog_Get', params)
-      .then(response => {
-          const { totalCount, data } = response;
-          this.msgTatal = totalCount;
-
-          console.log('MessageLog_Get:', data);
-          this.refList.value = data;
-      })
-      .catch(error => {
-          console.error('Error MessageLog_Get:', error);
-      });
-
-  },
-
-    //獲取模板的方法
-    async fetchTemplate() {
-      try {
-        const response = await fetch('./www/tpls/default/top.html');
-        // console.log('Response:', response);
-
-        // 確保 response.ok 為 true
-        if (response.ok) {
-          const text = await response.text();
-        //   console.log('Response Text:', text);
-          this.templateContent = text; // 將獲取到的內容設置到 data 中
-          await nextTick();
-          this.$refs.templateContainer.innerHTML = this.templateContent;
-          this.compileTemplate();
-        } else {
-          console.error('HTTP error:', response.status, response.statusText);
-        }
-      } catch (error) {
-        console.error('Fetch error:', error);
-      }
-    },
-
-    // 編譯模板的方法
-    compileTemplate() {
-      const container = this.$refs.templateContainer;
-      const compiled = Vue.compile(container.innerHTML);
-      const component = {
-        data: () => ({
-            msgTatal: this.msgTatal,
-            notificationResult: this.notificationResult, // 確保模板可以訪問 notificationResult
-            refList: this.refList.value // 傳遞 refList 到模板
-        }),
-        methods: { // 確保模板可以訪問 showNotification 方法
-          doNotification: this.doNotification,
-          doNotifiList: this.doNotifiList,
-          doNotifiMsg_Send: this.doNotifiMsg_Send,
-          doNotifiMsg_Show: this.doNotifiMsg_Show
-        },
-        render: compiled.render,
-        staticRenderFns: compiled.staticRenderFns
-      };
-      Vue.createApp(component).mount(container);
-    }
-  },
-  async mounted() {
-    // 初始化
-    this.doNotifiList();
-    await this.fetchTemplate();
-  },
   template: `
-    <div>
-      <div ref="templateContainer"></div>
+<link rel="stylesheet" href="./www/tpls/default/top.css">
+
+<!-- BEGIN scroll-top-btn -->
+<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+
+<!-- BEGIN #header -->
+<div id="header" class="app-header">
+    <!-- BEGIN navbar-header -->
+    <div class="navbar-header">
+        <a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> <b>NS MTS 系統</b> </a>
+        <button type="button" class="navbar-mobile-toggler" data-toggle="app-sidebar-mobile">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
     </div>
-  `
+    <!-- END navbar-header -->
+
+
+    <!-- BEGIN header-nav -->
+    <div class="navbar-nav">
+        <div class="navbar-item navbar-form">
+        </div>
+
+
+        <div class="navbar-item dropdown">
+            <a href="#" data-bs-toggle="dropdown" class="navbar-link dropdown-toggle icon">
+                <i class="fa fa-bell"></i>
+                <span class="badge">{{msgTatal}}</span>
+            </a>
+            <div class="dropdown-menu media-list dropdown-menu-end" id="div-messages">
+                <div class="dropdown-header">訊息通知 ({{msgTatal}})</div>     
+
+
+                <a href="javascript:;" class="dropdown-item media" @click="doNotifiMsg_Show(d.title, d.msg, $event);"
+                 v-for="(d, index) in refList" :key="index" :data-rowid="d.rowid">
+                    <div class="media-left">
+                        <i class="fa fa-envelope media-object bg-gray-500"></i>
+                        <i class="fab fa-google text-warning media-object-icon fs-14px"></i>
+                    </div>
+                    <div class="media-body">
+                        <h6 class="media-heading">{{ d.title }}</h6>
+                        <p>{{ d.msg }}</p>
+                        <div class="text-muted fs-10px">2 hour ago</div>
+                    </div>
+                </a>
+
+                <div class="dropdown-footer text-center">
+                    <a href="javascript:;" class="text-decoration-none" >View more</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="navbar-item navbar-user dropdown">
+            
+            <a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                <!-- <img src="/src/images/allen01.jpg" alt="" />  -->
+                <span>
+                    <span class="d-none d-md-inline">系統設定</span>
+                    <b class="caret"></b>
+                </span>
+            </a>
+            
+
+            <div class="dropdown-menu dropdown-menu-end me-1">
+                <div class="dropdown-divider"></div>
+                <a href="login.html" class="dropdown-item">Log Out</a>
+            </div>
+        </div>
+    </div>
+    <!-- END header-nav -->
+</div>
+<!-- END #header -->
+  `,
 };

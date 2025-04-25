@@ -1,0 +1,162 @@
+<link rel="stylesheet" href="./www/views/messages/list.css">
+<!-- <script src="./www/components/pages/PagesList.js"></script> -->
+
+
+		<!-- BEGIN mailbox -->
+    <div class="mailbox">
+      <!-- BEGIN mailbox-sidebar -->
+      <div class="mailbox-sidebar">
+        <div class="mailbox-sidebar-header d-flex justify-content-center">
+          <a href="#emailNav" data-bs-toggle="collapse" class="btn btn-dark btn-sm me-auto d-block d-lg-none">
+            <i class="fa fa-cog"></i>
+          </a>
+          <a href="javascript:;" class="btn btn-dark ps-40px pe-40px btn-sm">
+            訊息中心
+          </a>
+                   
+        </div>
+        <div class="mailbox-sidebar-content collapse d-lg-block" id="emailNav">
+          <!-- BEGIN scrollbar -->
+          <div data-scrollbar="true" data-height="100%" data-skip-mobile="true">
+            <div class="nav-title"><b>訊息群組</b></div>
+            <ul class="nav nav-inbox">
+              
+              <li v-for="(d, index) in refGroupList" :key="index">
+                <!-- <a href="javascript:;" @click="doListData_Get(1, d.title)"> -->
+                <a href="javascript:void(0);" @click="doListData_Get(index, d.title)">
+                <i class="fa fa-fw fa-lg fs-12px me-2 fa-circle" :class="d.textColor"></i> {{d.title}}
+                <span class="badge bg-lime-600 fs-10px rounded-pill ms-auto fw-bolder pt-4px pb-5px px-8px">{{d.count}}</span>
+                </a>
+              </li>
+
+              <!-- <li><a href="javascript:;"><i class="fa fa-fw fa-lg fs-12px me-2 fa-circle text-blue"></i> Designer & Employer</a></li>
+              <li><a href="javascript:;"><i class="fa fa-fw fa-lg fs-12px me-2 fa-circle text-success"></i> Staff</a></li>
+              <li><a href="javascript:;"><i class="fa fa-fw fa-lg fs-12px me-2 fa-circle text-warning"></i> Sponsorer</a></li>
+              <li><a href="javascript:;"><i class="fa fa-fw fa-lg fs-12px me-2 fa-circle text-danger"></i> Client</a></li>
+            </ul> -->
+            <!-- <ul class="nav nav-inbox">
+              <li class="active"><a href="email_inbox.html"><i class="fa fa-hdd fa-lg fa-fw me-2"></i> Inbox <span class="badge bg-gray-600 fs-10px rounded-pill ms-auto fw-bolder pt-4px pb-5px px-8px">52</span></a></li>
+              <li><a href="email_inbox.html"><i class="fa fa-flag fa-lg fa-fw me-2"></i> Important</a></li>
+              <li><a href="email_inbox.html"><i class="fa fa-envelope fa-lg fa-fw me-2"></i> Sent</a></li>
+              <li><a href="email_inbox.html"><i class="fa fa-save fa-lg fa-fw me-2"></i> Drafts</a></li>
+              <li><a href="email_inbox.html"><i class="fa fa-trash-alt fa-lg fa-fw me-2"></i> Trash</a></li>
+            </ul> -->
+            <!-- <div class="nav-title"><b>LABEL</b></div> -->         
+          </div>
+          <!-- END scrollbar -->
+        </div>
+      </div>
+      <!-- END mailbox-sidebar -->
+      <!-- BEGIN mailbox-content -->
+      <div class="mailbox-content" style="margin-left: 220px;">
+        <div class="mailbox-content-header">
+          <!-- BEGIN btn-toolbar -->
+          <div class="btn-toolbar align-items-center row">
+
+            <div class="form-check col ns-checkbox-all">
+                <input type="checkbox" class="form-check-input" data-checked="email-checkbox" id="SelectAll" 
+                data-change="email-select-all"  v-model="msgIsAllSelected" />
+                <label class="form-check-label pe-4">全選</label> 
+                <button class="btn btn-sm btn-white me-30 mb-10"  data-email-action="delete" id="chcekboxBtnDelete" @click="getSelectedRowIds">
+                  <i class="fa fa-times me-1"></i> 
+                  <span class="hidden-xs">Delete</span>
+                </button>
+             
+            </div>
+            <div class="form-check me-2 col d-flex justify-content-end">
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="read_type" value="all" checked="checked" v-model="selectedReadType" 
+                 @change="handleReadTypeChange"> 
+                <label class="form-check-label">全部</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="read_type" value="unread"  v-model="selectedReadType" 
+                @change="handleReadTypeChange">
+                <label class="form-check-label">未讀</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="read_type" value="isread" v-model="selectedReadType"
+                 @change="handleReadTypeChange">
+                <label class="form-check-label">己讀</label>
+              </div>
+
+              <!-- <button type="button" class="btn btn-success me-2">未讀</button>
+              <button type="button" class="btn btn-warning">己讀</button> -->
+
+            </div>
+
+            <!-- <div class="dropdown me-2">
+              <button class="btn btn-white btn-sm" data-bs-toggle="dropdown">
+                View All <span class="caret ms-3px"></span>
+              </button>
+             <div class="dropdown-menu">
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2"></i> All</a>
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2 text-muted"></i> Unread</a>
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2 text-blue"></i> Contacts</a>
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2 text-success"></i> Groups</a>
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2 text-warning"></i> Newsletters</a>
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2 text-danger"></i> Social updates</a>
+                <a href="javascript:;" class="dropdown-item"><i class="fa fa-circle fs-9px fa-fw me-2 text-indigo"></i> Everything else</a>
+              </div>
+            </div> -->
+            <!-- <button class="btn btn-sm btn-white me-2"><i class="fa fa-redo"></i></button> -->
+            <!-- <div class="w-100 d-sm-none d-block mb-2 hide" data-email-action="divider"></div> -->
+            <!-- BEGIN btn-group -->
+            <div class="btn-group" id="chkToolbar">
+              <button class="btn btn-sm btn-white hide" data-email-action="delete"><i class="fa fa-times me-1"></i> <span class="hidden-xs">Delete</span></button>
+              <button class="btn btn-sm btn-white hide" data-email-action="archive"><i class="fa fa-folder me-1"></i> <span class="hidden-xs">Archive</span></button>
+              <button class="btn btn-sm btn-white hide" data-email-action="archive"><i class="fa fa-trash me-1"></i> <span class="hidden-xs">Junk</span></button>
+            </div>
+            <!-- END btn-group -->
+            
+          </div>
+          <!-- END btn-toolbar -->
+        </div>
+        <div class="mailbox-content-body">
+          <div data-scrollbar="true" data-height="100%" data-skip-mobile="true">
+            <!-- BEGIN list-email -->
+            <ul class="list-group list-group-lg no-radius list-email">
+            
+              <template v-for="(d, index) in refList" :key="index">
+              <li class="list-group-item unread" :class="{ ns_unisread: !d.isread, ns_isread: d.isread }">
+                <div class="email-checkbox">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" data-checked="email-checkbox" v-model="d.selected" :data-rowid="d.rowid">-{{d.rowid}}
+                    <label class="form-check-label" for="emailCheckbox2"></label>
+                  </div>
+                </div>
+                <a href="javascript:void(0);" class="email-user bg-indigo">
+                  <!-- <span class="text-white">M</span> -->
+                  <i class="fa fa-envelope fa-lg fa-fw me-2"></i> 
+                </a>
+                <div class="email-info">
+                  <a href="javascript:void(0);" @click="doNotifiMsg_Show(d.title, d.msg, $event);" :data-rowid="d.rowid">
+                    <span class="email-sender">{{d.title}}</span>
+                    <span class="email-title">{{d.msg}}</span>
+                    <!-- <span class="email-desc">Proin interdum aliquam urna, quis lobortis magna tincidunt ac. Integer sed pulvinar neque...</span> -->
+                    <span class="email-time">{{ formatDate(d.cdate) }}</span>
+                  </a>
+                </div>
+              </li>
+              </template> 
+              
+            </ul>
+            <!-- END list-email -->
+          </div>
+        </div>
+        <div class="mailbox-content-footer d-flex align-items-center">
+          <div class="text-dark fw-bold">{{msgTotal}} 則訊息</div>
+          <!-- <div class="btn-group ms-auto">
+            <button class="btn btn-white btn-sm">
+              <i class="fa fa-fw fa-chevron-left"></i>
+            </button>
+            <button class="btn btn-white btn-sm">
+              <i class="fa fa-fw fa-chevron-right"></i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+      <!-- END mailbox-content -->
+    </div>
+    <!-- END mailbox -->

@@ -22,6 +22,7 @@ const sequelize = new Sequelize(db_name, db_user, db_pwd, {
   host: db_host,
   port: db_port,
   dialect: 'mssql',
+
   dialectOptions: {
     options: {
       encrypt: false, // 如果使用加密連接，設置為 true
