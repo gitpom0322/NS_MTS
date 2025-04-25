@@ -69,7 +69,7 @@ export const leftTpl = {
             </a>
             <div class="menu-submenu">
               <div class="menu-item">
-                <a href="index.html" class="menu-link"><RouterLink to="/">首頁</RouterLink></a>
+                <a href="index.html" class="menu-link"><RouterLink to="/">首頁111</RouterLink></a>
               </div>
               <div class="menu-item active">
                 <a href="index.html" class="menu-link"><RouterLink to="/admin">admin頁</RouterLink></a>

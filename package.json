@@ -1,6 +1,6 @@
 {
   "name": "ns-nts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./portal/main.js",
   "scripts": {
     "start": "electron .",
@@ -9,13 +9,6 @@
   },
   "build": {
     "appId": "tw.com.nonsheng",
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "gitpom0322",
-        "repo": "NS_MTS"
-      }
-    ],
     "productName": "農生 MTS 系統",
     "directories": {
       "output": "dist"

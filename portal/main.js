@@ -58,6 +58,14 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
+
+  // 設定自訂更新伺服器 URL
+  autoUpdater.setFeedURL({
+    provider: 'generic',
+    url: 'http://app.non-sheng.com.tw/updates/ns_mts/' // 替換為你的更新伺服器 URL
+  });
+
+
  // 啟動自動更新檢查
   autoUpdater.checkForUpdatesAndNotify();
 
